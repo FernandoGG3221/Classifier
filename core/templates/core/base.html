@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}{% endblock %}</title>
+    {% load static %}
+
+    <!-- Fuentes -->
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,400i,700,700i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i" rel="stylesheet">
+    
+    <!-- Estilos -->
+    <link href="{% static 'core/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'core/vendor/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'core/css/main.css' %}" rel="stylesheet">
+    <link href="{% static 'core/css/mdb.css' %}" rel="stylesheet">
+    <link href="{% static 'core/css/mdb.min.css' %}" rel="stylesheet">
+    <style>
+      /* Make the image fully responsive */
+      .navbar.scrolling-navbar {
+      padding-top: 6px;
+      padding-bottom: 6px;
+      -webkit-transition: background 0.5s ease-in-out,padding 0.5s ease-in-out;
+      transition: background 0.5s ease-in-out,padding 0.5s ease-in-out;
+      }
+      .navbar.scrolling-navbar.top-nav-collapse {
+          padding-top: 1px;
+          padding-bottom: 1px;
+      }
+      .carousel-inner{
+        height: 100vh;
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+      .gris{
+        background: rgba(0, 0, 0, 0.39);
+      }
+      .top-nav-collapse{
+        background: rgba(62, 155, 155, 0.836) !important;
+      }
+    </style>
+    {% block linkHREF %}{% endblock %}
+    {% block style %}{% endblock %}
+  </head>
+    <body>
+      {% block jumbo %}{% endblock %}
+      <header class="container">
+        <!-- Navegación -->
+        <nav class="navbar navbar-expand-md navbar-dark gris scrolling-navbar fixed-top">
+          <div class="container">
+            <img src="{% static 'core/img/logo1.png' %}" class="img-fluid" width="40px" alt="Responsive image"> <a class="navbar-brand" href="{% url 'home' %}">Identificar</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ned" aria-controls="ned" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="ned">
+              
+              <!--Elementos del lado derecho-->
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'home' %}">Inicio</a>
+                </li>
+              </ul>
+
+              <!--Elementos del lado izquierdo-->
+              <ul class="navbar-nav nav-flex-icons">
+                {% if not request.user.is_authenticated %}
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}">Acceder</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'signup' %}">Registro</a>
+                  </li>
+                {% else %}
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'projects:projects' %}">Proyectos</a>
+                  </li>
+                  {% if request.user.is_staff %}
+                    <li class="nav-item">
+                      <a class="nav-link" href="{% url 'pages:pages' %}">Páginas</a>
+                    </li>
+                  {% endif %}  
+                  {% if request.user.profile.avatar %}
+                    <li class="nav-item">
+                      <a href="{% url 'profile' %}"><img src="{{request.user.profile.avatar.url}}" class="img-fluid" width="60px" height="100%" alt="Responsive image"></a>
+                    </li>
+                  {% else %}
+                    <li class="nav-item">
+                      <a href="{% url 'profile' %}"><img src="{% static 'registration/img/no-avatar.jpg' %}" class="img-fluid" width="20px" alt="Responsive image"></a>
+                    </li>
+                  {% endif %}
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}"><img src="{% static 'core/Iconos/exit.png' %}" class="img-fluid" width="20px" alt="Responsive image"></a>
+                  </li>
+                {% endif %}
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </header>
+      
+      <!-- Contenido -->
+      <div class="container">
+        <div><br><br><br></div>
+        {% block content %}{% endblock %}
+      </div>
+      <!-- Javascript -->
+      <script src="{% static 'core/vendor/jquery/jquery.min.js' %}"></script>
+      <script src="{% static 'core/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+      <script src="{% static 'core/js/main.js' %}"></script>
+      <script src="{% static 'core/js/mdb.js' %}"></script>
+      <script src="{% static 'core/src/js/free/scrolling-navbar.js' %}"></script>
+    </body>
+    
+    <!-- Footer -->
+  <footer class="page-footer font-small unique-color-dark bg-dark">
+    <!--Primer Contenedor-->
+    <div class='bg-dark'>
+      <!--2do Contenedor-->
+      <div class="container">
+        <!-- Grid row-->
+        <div class="row py-4 d-flex align-items-center">
+          <!-- Grid column -->
+
+          <!-- Footer Links -->
+          <div class="container text-center text-md-left mt-5" >
+            <!-- Grid row -->
+            <div class="row mt-3">
+
+              <!-- Company name -->
+              <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4 text-white">
+                <!-- Content -->
+                <h6 class="text-uppercase font-weight-bold">Instituto Tecnológio Superior de Zacapoaxtla</h6>
+                <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+                <p>Carretera Acuaco-Zacapoaxtla Km. 8, Col. Totoltepec, 73680 Zacapoaxtla, Puebla.</p>
+                <p>Teléfono y Fax: 01 233 317 5000</p>
+                <p>webmaster@live.itsz.edu.mx</p>
+                
+              </div>
+              <!-- Fin Company name -->
+
+              <!-- Páginas -->
+              <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4 text-white">
+                
+                <h6 class="text-uppercase font-weight-bold">Páginas</h6>
+                <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+                {% load pages_extras %}
+                {% get_page_list as page_list %}
+                  {% for page in page_list %}
+                    <p>
+                      <a class="link text-light" href="{% url 'pages:page' page.id page.title|slugify %}">{{page.title}}</a>
+                    </p>
+                  {% endfor %}
+              </div>
+              <!-- Fin Páginas -->
+
+              <!-- Redes sociales -->
+              <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4 text-white">
+                <!-- Links -->
+                <h6 class="text-uppercase font-weight-bold">Redes Sociales</h6>
+                <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+                  <p>
+                    {% if LINK_TWITTER %}
+                      <a class="link" href="{{LINK_TWITTER}}">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-twitter fa-stack-1x fa-inverse bg-dark"></i>
+                        </span>
+                      </a>
+                    {% endif %}
+                    {% if LINK_FACEBOOK %}
+                      <a class="link" href="{{LINK_FACEBOOK}}">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-facebook fa-stack-1x fa-inverse bg-dark"></i>
+                        </span>
+                      </a>
+                    {% endif %}
+                    {% if LINK_INSTAGRAM %}
+                      <a class="link" href="{{LINK_INSTAGRAM}}">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-instagram fa-stack-1x fa-inverse bg-dark"></i>
+                        </span>
+                      </a>
+                    {% endif %}
+                  </p>
+              </div>
+              <!-- Redes sociales -->
+            </div>
+            <!-- Grid row -->
+            <!-- Copyright -->
+            <div class="footer-copyright text-center py-3 text-light">© 2018 Copyright:
+              <a class='text-light' href="https://www.facebook.com/fernando.balu/">Fernando González González</a>
+            </div>
+            <!-- Copyright -->
+          </div>
+          <!-- Footer Links -->          
+        </div>
+        <!-- Grid row-->
+      </div>
+      <!--Fin del 2do Contenedor-->
+    </div>
+    <!--Fin del Primer Contenedor-->
+  </footer>
+  <!-- Footer -->
+</html>

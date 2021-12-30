@@ -1,0 +1,249 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Proyecto{% endblock %}
+{% block linkHREF %}
+{% endblock %}
+{% block style %}
+<style>
+    body {
+      font-family: "Lato", sans-serif;
+      transition: background-color .5s;
+    }
+    
+    .sidenav {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      z-index: 1;
+      top: 0;
+      left: 0;
+      background-color: #111;
+      overflow-x: hidden;
+      transition: 0.5s;
+      padding-top: 60px;
+    }
+    
+    .sidenav a {
+      padding: 8px 8px 8px 32px;
+      text-decoration: none;
+      font-size: 25px;
+      color: #818181;
+      display: block;
+      transition: 0.3s;
+    }
+    
+    .sidenav a:hover {
+      color: #f1f1f1;
+    }
+    
+    .sidenav .closebtn {
+      position: absolute;
+      top: 3;
+      right: 25px;
+      font-size: 36px;
+      margin-left: 50px;
+    }
+    
+    #main {
+      transition: margin-left .5s;
+      padding: 16px;
+    }
+    
+    @media screen and (max-height: 450px) {
+      .sidenav {padding-top: 15px;}
+      .sidenav a {font-size: 6px;}
+    }
+</style>
+
+    <script>
+        function ventanaNueva(documento){	
+	        window.open(documento,'nuevaVentana','width=300, height=400');
+        }
+    </script>
+{% endblock %}
+{% block content %}
+
+<div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="#" data-toggle="modal" data-target="#repos">Banco de imágenes</a>
+    <a href="#" data-toggle="modal" data-target="#extract">Extracción de características</a>
+    <a href="#" data-toggle="modal" data-target="#train">Entrenamiento</a>
+    <a href="#" data-toggle="modal" data-target="#image">Añadir especie a identificar</a>
+    <a href="#" data-toggle="modal" data-target="#identy">Identificación</a>
+    <a href="#" data-toggle="modal" data-target="#gmail">Google Drive</a>
+  </div>
+
+<div class="main">
+    <div>
+
+    </div>
+    <!--Modal de Banco de imágenes-->
+        <div class="modal fade" id="repos" tabindex="-1" role="dialog" aria-labelledby="reposLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="reposLabel">Banco de imágenes</h5>
+              </div>
+              <div class="modal-body">
+                ¿Añadir banco de imágenes?
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <a href="{% url 'projects:repos' proyecto.id proyecto.titulo|slugify %}" class="btn btn-success">Ok</a>
+              </div>
+            </div>
+          </div>
+        </div>
+    <!--Fin del modal de Banco de imágenes-->
+
+    <!--Modal de Extracción-->
+    <div class="modal fade" id="extract" tabindex="-1" role="dialog" aria-labelledby="extractlabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="extractlabel">Extracción de características</h5>
+          </div>
+          <div class="modal-body">
+            Extracción de características del banco de imágenes
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+            <a href="{% url 'projects:extract' proyecto.id proyecto.titulo|slugify %}" class="btn btn-success">Ok</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Fin del modal de extracción-->
+
+    <!--Modal de Entrenamiento-->
+    <div class="modal fade" id="train" tabindex="-1" role="dialog" aria-labelledby="trainLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="trainLabel">Entrenamiento de red neuronal</h5>
+          </div>
+          <div class="modal-body">
+            ¡Entrenar ahora!
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+            <a href="{% url 'projects:train' proyecto.id proyecto.titulo|slugify %}" class="btn btn-success">Ok</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Fin del modal de Entrenamiento-->
+
+    <!--Modal de Imágen-->
+    <div class="modal fade" id="image" tabindex="-1" role="dialog" aria-labelledby="imageLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="imageLabel">Especie a identificar</h5>
+          </div>
+          <div class="modal-body">
+            Añadir especie para identificar
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+            <a href="{% url 'projects:image' proyecto.id proyecto.titulo|slugify %}" class="btn btn-success">Ok</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Fin del modal de Imágen-->
+
+    <!--Modal de Identificación-->
+    <div class="modal fade" id="identy" tabindex="-1" role="dialog" aria-labelledby="identyLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="identyLabel">Identificación</h5>
+          </div>
+          <div class="modal-body">
+            Identificación por la red neuronal
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+            <a href="{% url 'projects:identy' proyecto.id proyecto.titulo|slugify %}" class="btn btn-success">Ok</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Fin del modal de Identificación-->
+    
+    <!--Modal de GMAIL-->
+    <div class="modal fade" id="gmail" tabindex="-1" role="dialog" aria-labelledby="gmailLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="gmailLabel">Google Drive</h5>
+          </div>
+          <div class="modal-body">
+            Descargar imágenes de Google Drive
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+
+            <a class="btn btn-success" href="https://drive.google.com/drive/?utm_source=en&pli=1" target="ventana1" onclick="ventanaNueva ('', 300, 400, 'ventana1');">Ok</a>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Fin del modal de Gmail-->
+
+    <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Custom Vision</span>
+    <div class="content">
+        <section class="jumbotron text-center">
+            <div class="container">
+                <h1>{{proyecto.titulo}}</h1>
+                <p class="lead text-muted">{{object.contenido}}</p>
+            </div>
+        </section>
+        <!--Album-->
+        <div class="album py-5 bg-light">
+            <div class="container">
+                <div class="row">
+                    <!--Elementos del album-->
+                    {% for im in img %}
+                    <div class="col-md-4">
+                        <div class="card mb-4 shadow-sm">
+                            <!--<img src="{{im.image.url}}" class="image-fluid" width="150px" alt="{{ im.tag }}">-->
+                            <img src="{{im.imagen.url}}" class="image-fluid" width="150px" alt="{{ im.tag }}">
+                            
+                            <div class="card-body">
+                                <p class="card-text">{{im.FK_identificar}}</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                      <!--Boton de borrar imágenes-->
+                                        <button class="btn btn-sm btn-outline-secondary" type="button">Delet</button>
+                                    </div>
+                                    <small class="text-muted">{{im.created}}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {%endfor%}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+<script>
+    function openNav() {
+      document.getElementById("mySidenav").style.width = "250px";
+      document.getElementById("main").style.marginLeft = "250px";
+      document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+    }
+    
+    function closeNav() {
+      document.getElementById("mySidenav").style.width = "0";
+      document.getElementById("main").style.marginLeft= "0";
+      document.body.style.backgroundColor = "white";
+    }
+</script>
+     
+{% endblock %}

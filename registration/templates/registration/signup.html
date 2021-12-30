@@ -1,0 +1,31 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Registro{% endblock %}
+{% block content %}
+<style>.errorlist{color:red;} label{display:none}</style>
+<main role="main">
+  <div class="container" ><!--style='background-image: url("{% static 'core/img/bg.jpg' %}");'-->
+    <div class="row mt-3">
+      <div class="col-md-9 mx-auto mb-5">
+
+        <div class="container text-center mt-5 mb-4">
+          <h1 class="p-t-20 p-b-35">
+            Registro de usuario
+          </h1>
+        </div>
+
+        <div class="limiter">
+          <form class="login100-form validate-form" action="" method="post">{% csrf_token %}         
+            {{form.as_table}}
+            <div class="container-login100-form-btn mt-5">
+              <input type="submit" class="btn btn-outline-dark text-dark form-control" value="Confirmar">
+            </div>
+
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}
