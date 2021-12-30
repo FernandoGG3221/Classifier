@@ -1,0 +1,21 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}{{pagemodel.title}}{% endblock %}
+{% block content %}
+{% include 'pages/include/pages_menu.html' %}
+<main role="main">
+  <div class="container">
+    <div class="row mt-3">
+      <div class="col-md-9 mx-auto">
+        <h2 class="section-heading mb-4">{{pagemodel.title}}</h2>
+        <div>
+          {{pagemodel.content|safe}}
+          {% if request.user.is_staff %}
+            <p><a href="{% url 'pages:update' pagemodel.id %}">Editar</a></p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}

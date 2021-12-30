@@ -1,0 +1,45 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Añadir repositorio de imágenes{% endblock %}
+{% block content %}
+<main role="main">
+  <div class="container">
+    <div class="row mt-3 mb-5">
+      <div class="col-md-9 mx-auto">
+      <h3>Añadir Banco de imagenes a: {{object.titulo}}</h3>
+        <form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+          <div class="form-row align-items-center">
+            <div class="col mb-3">
+              <p class='mb-1'><label for="radio">Especie:</label></p>
+              {% for tags in tag %}
+                <div id='radio' class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" class="custom-control-input" id="{{tags.tag}}" name="Etiqueta" value='{{tags.tag}}' required>
+                    <label class="custom-control-label" for='{{tags.tag}}'>{{tags.tag}}</label>
+                </div>
+              {% endfor %}
+            </div>
+            <div class='col'>
+              <p>
+                <label for="id_repositorio">Repositorio:</label> 
+                <input type="file" name="repositorio" class="form-control" multiple="" required="" id="id_repositorio">
+              </p>
+            </div>
+          </div>
+          <div class="text-center">
+            <input type="submit" class="btn btn-primary btn-block"  value="Añadir" />
+          </div>
+        </form>
+
+        <script>
+              var cont = 0;
+              function aumento(tipo){
+                var x = parseInt(document.getElementById("cero").value);
+                x = x + cont;
+                document.getElementById("aut").innerHTML = x;
+              }
+            </script>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}
