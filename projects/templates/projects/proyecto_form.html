@@ -1,0 +1,23 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Crear proyecto{% endblock %}
+{% block content %}
+<main role="main">
+  <div class="container">
+    <div class="row mt-3 mb-5">
+      <div class="col-md-9 mx-auto">
+        <form action="" method="post">{% csrf_token %}
+            <p> <input type="text" name="titulo" class="form-control" placeholder="Titulo" maxlength="200" required="" id="id_titulo"></p>
+            <p> <textarea name="contenido" cols="40" rows="3" class="form-control" placeholder="Contenido" required="" id="id_contenido" style="height: 96px;"></textarea></p>
+            <p> <input type="text" name="tag_uno" id="id_tag_uno" placeholder="Primera especie" maxlength="200" class="form-control" required></p>
+            <p> <input type="text" name="tag_dos" id="id_tag_dos" placeholder="Segunda especie" maxlength="200" class="form-control" required></p>
+            <p> <input type="text" name="tag_tres" id="id_tag_tres" placeholder="Tercera especie" maxlength="200" class="form-control" required></p> 
+            <div class="text-center">
+              <input type="submit" class="btn btn-primary btn-block form-control" value="Crear proyecto" />
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}
